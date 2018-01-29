@@ -12,7 +12,7 @@ test("Default constructor sets a null root", () => {
 test("Constructor sets the correct root", () => {
   const node = new Node({ data: 1 });
 
-  const tree = new Tree(node);
+  const tree = new Tree({ root: node });
   expect(tree.root).toBe(node);
 });
 
@@ -25,7 +25,7 @@ test("Inserts to root correctly", () => {
 });
 
 const initial_tree = comparator => {
-  const tree = comparator ? new Tree(comparator) : new Tree();
+  const tree = comparator ? new Tree({ comparator }) : new Tree();
   tree.insert(new Node({ data: 6 }));
   tree.insert(new Node({ data: 2 }));
   tree.insert(new Node({ data: 4 }));
