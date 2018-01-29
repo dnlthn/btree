@@ -41,7 +41,7 @@ test("Inserts correctly with default comparator", () => {
   const ten = new Node({ data: 10 });
   tree.insert(ten);
 
-  const found_ten = tree.root.right.left;
+  const found_ten = tree.root.right.right;
   expect(found_ten).toBe(ten);
 });
 
@@ -51,7 +51,7 @@ test("Inserts correctly with modified comparator", () => {
   const ten = new Node({ data: 10 });
   tree.insert(ten);
 
-  const found_ten = tree.root.left.right;
+  const found_ten = tree.root.left.left;
   expect(found_ten).toBe(ten);
 });
 
