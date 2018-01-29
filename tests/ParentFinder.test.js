@@ -1,6 +1,6 @@
 import Tree from "../src/Tree";
 import Node from "../src/Node";
-import ParentFinder from "../src/index";
+import ParentFinder from "../src/ParentFinder";
 
 test("Find common parents when on same branch from root", () => {
   const tree = new Tree();
