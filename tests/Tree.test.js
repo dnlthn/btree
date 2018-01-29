@@ -97,5 +97,5 @@ test("Get Parents returns a list of the nodes parents", () => {
 test("Get Parents returns a empty list when the node is not in the tree", () => {
   const tree = initial_tree();
 
-  expect(tree.get_parents(10)).toBe([]);
+  expect(tree.get_parents(10)).toEqual([]);
 });
