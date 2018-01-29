@@ -46,7 +46,7 @@ test("Inserts correctly with default comparator", () => {
 });
 
 test("Inserts correctly with modified comparator", () => {
-  const tree = initial_tree((first, second) => first > second);
+  const tree = initial_tree((first, second) => first.data > second.data);
 
   const ten = new Node({ data: 10 });
   tree.insert(ten);
