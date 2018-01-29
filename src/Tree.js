@@ -35,31 +35,25 @@ export default class Tree {
   }
 }
 
-function recursive_insert(node, current, { comparator }) {
-  const less_than_current = comparator(node, current);
+function recursive_insert(node, current, options) {
+  const less_than_current = options.comparator(node, current);
 
   if (less_than_current) {
-    if (current.left) recursive_insert(node, current.left, { comparator });
+    if (current.left) recursive_insert(node, current.left, options);
     else current.left = node;
   } else {
-    if (current.right) recursive_insert(node, current.right, { comparator });
+    if (current.right) recursive_insert(node, current.right, options);
     else current.right = node;
   }
 }
 
-function search_helper(value, current, { return_node = false, comparator }) {
+function search_helper(value, current, options) {
+  const { return_node = false, comparator } = options;
+
   if (!current) return return_node ? null : false;
   if (value === current.data) return return_node ? current : true;
 
   const less_than_current = comparator({ data: value }, current);
-  if (less_than_current)
-    return search_helper(value, current.left, {
-      return_node,
-      comparator
-    });
-  else
-    return search_helper(value, current.right, {
-      return_node,
-      comparator
-    });
+  if (less_than_current) return search_helper(value, current.left, options);
+  else return search_helper(value, current.right, options);
 }
