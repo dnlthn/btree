@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mattersight BTree - Daniel Thomposon</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="root" class="w-screen h-screen bg-grey-lightest flex justify-center items-center flex-col">
+    <h1 class="text-3xl font-light text-black mb-2">Mattersight BTree Problem</h1>
+    <h2 class="text-lg font-thin text-grey-darker mb-4">by Daniel Thompson</h2>
+
+    <div id="links" class="mb-4 text-grey-darkest">
+      <button class="text-s font-md rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-white">
+        <span>Click for source code at BitBucket</span>
+      </button>
+    </div>
+
+    <div id="tree" class="bg-white border-t-4 border-2 border-purple-light rounded m-4 h-64 w-64">
+    </div>
+
+    <div id="quick-modify" class="mb-8">
+      <button id="reset-tree" class="p-4 bg-purple hover:bg-purple-dark text-white rounded-full mx-2">Reset Tree</button>
+      <button id="clear-tree" class="p-4 bg-purple hover:bg-purple-dark text-white rounded-full mx-2">Clear Tree</button>
+    </div>
+
+    <div class="flex justify-center bg-grey-lighter p-4 rounded">
+      <div class="mr-8">
+        <div id="insert" class="mb-4">
+          <p class="p-2 text-grey-darker font-light">Node Value</p>
+          <input id="insert_value" type="text" class="p-4 bg-white border-2 rounded border-purple text-l">
+          <button id="insert_node" class="p-4 bg-purple hover:bg-purple-dark text-white rounded mx-2">Insert Node</button>
+        </div>
+
+        <div id="remove" class="mb-4">
+          <p class="p-2 text-grey-darker font-light">Node Value</p>
+          <input id="remove_value" type="text" class="p-4 bg-white border-2 rounded border-purple text-l">
+          <button id="remove_node" class="p-4 bg-purple hover:bg-purple-dark text-white rounded mx-2">Remove Node</button>
+        </div>
+      </div>
+
+      <div id="findparent">
+        <span>
+          <p class="p-2 text-grey-darker font-light">First Node Value</p>
+          <input id="first_value" type="text" class="p-4 bg-white border-2 rounded border-purple text-l mb-4">
+        </span>
+        <span>
+          <p class="p-2 text-grey-darker font-light">Second Node Value</p>
+          <input id="second_value" type="text" class="p-4 bg-white border-2 rounded border-purple text-l">
+        </span>
+        <button id="parent_button" class="p-4 bg-purple hover:bg-purple-dark text-white rounded mx-2">Find Parent</button>
+      </div>
+    </div>
+  </div>
+  <script src="./src/index.js"></script>
+</body>
+
+</html>
