@@ -1,4 +1,5 @@
 import Tree from "../src/Tree";
+import Node from "../src/Node";
 
 test("Tree instantiates a Tree object", () => {
   expect(new Tree() instanceof Tree).toBe(true);
