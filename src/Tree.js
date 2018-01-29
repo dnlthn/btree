@@ -6,22 +6,19 @@ class Tree {
   }
 
   insert(node) {
-    if (this.root === null) {
-      this.root = node;
+    if (this.root === null) this.root = node;
+    else this.recursive_insert(node, this.root);
+  }
+
+  recursive_insert(node, current) {
+    const less_than_current = this.compare(node, current);
+
+    if (less_than_current) {
+      if (current.left) this.recursive_insert(node, current.left);
+      else current.left = node;
     } else {
-      let current = this.root;
-      let previous = null;
-      while (current) {
-        previous = current;
-        const less_than_current = this.compare(node, current);
-
-        if (less_than_current) current = current.left;
-        else current = current.right;
-      }
-      const less_than_current = this.compare(node, previous);
-
-      if (less_than_current) previous.left = node;
-      else previous.right = node;
+      if (current.right) this.recursive_insert(node, current.right);
+      else current.right = node;
     }
   }
 
