@@ -14,7 +14,7 @@ test("Constructor inserts left correctly", () => {
   const root_node = new Node({ data: 2, left: node_one });
 
   const left_node = root_node.left;
-  expect(left_node.data).toBe(1);
+  expect(left_node).toBe(node_one);
 });
 
 test("Constructor inserts right correctly", () => {
@@ -22,10 +22,19 @@ test("Constructor inserts right correctly", () => {
   const root_node = new Node({ data: 2, right: node_one });
 
   const right_node = root_node.right;
-  expect(right_node.data).toBe(1);
+  expect(right_node).toBe(node_one);
 });
 
 test("Returns correct node when deeply nested", () => {
+  const four = new Node({ data: 4 });
+  const two = new Node({ data: 2, right: four });
+  const root_node = new Node({ data: 6, left: two });
+
+  const result = root_node.left.right;
+  expect(result).toBe(four);
+});
+
+test("Returns correct value when deeply nested", () => {
   const four = new Node({ data: 4 });
   const two = new Node({ data: 2, right: four });
   const root_node = new Node({ data: 6, left: two });
