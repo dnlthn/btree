@@ -91,35 +91,47 @@ function build_tree(tree, options) {
         nodes_in_level.push(null);
     }
 
-    if (nodes_in_level.some(node => node !== null)) {
-      const level_html = nodes_in_level.reduce((html, node) => {
-        const color = node
+    const level_html = nodes_in_level.reduce((html, node) => {
+      const color =
+        node.data !== "leaf"
           ? node.data === parent
             ? "bg-orange"
             : node.data === child_one || node.data === child_two
               ? "bg-green"
               : "bg-purple"
           : "bg-transparent";
-        return `${html}<div class='p-4 m-4 text-xl ${color} text-white rounded'>${
-          node ? node.data : ""
-        }</div>`;
-      }, "");
-      tree_html = `${tree_html}<div class='flex justify-around p-2'>${level_html}</div>`;
-      current_level += 1;
-    }
+      return `${html}<div class='p-4 m-4 text-xl ${color} text-white rounded'>${
+        node ? node.data : ""
+      }</div>`;
+    }, "");
+    tree_html = `${tree_html}<div class='flex justify-around p-2'>${level_html}</div>`;
+    current_level += 1;
   }
   tree_div.innerHTML = tree_html;
 }
 
 function breadth_first_list(tree) {
   if (!tree.root) return [];
+  const max_nodes = Math.pow(2, depth_of_tree(tree.root)) - 1;
   const list = [];
   const queue = [tree.root];
 
-  while (queue.length > 0) {
+  while (list.length < max_nodes) {
     const removed = queue.shift();
     list.push(removed);
-    if (removed !== null) queue.push(removed.left, removed.right);
+    if (removed !== null)
+      queue.push(
+        removed.left !== null ? removed.left : new Node({ data: "leaf" }),
+        removed.right !== null ? removed.right : new Node({ data: "leaf" })
+      );
   }
   return list;
+}
+
+function depth_of_tree(root) {
+  if (!root) return 0;
+  const left_depth = depth_of_tree(root.left);
+  const right_depth = depth_of_tree(root.right);
+
+  return Math.max(left_depth, right_depth) + 1;
 }
