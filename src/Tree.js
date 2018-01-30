@@ -41,9 +41,13 @@ export default class Tree {
     smallest_node.left = node.left;
     smallest_parent.left = null;
 
-    this.compare(smallest_node, parent)
-      ? (parent.left = smallest_node)
-      : (parent.right = smallest_node);
+    if (node === this.root) {
+      this.root = smallest_node;
+    } else {
+      this.compare(smallest_node, parent)
+        ? (parent.left = smallest_node)
+        : (parent.right = smallest_node);
+    }
 
     if (smallest_parent !== node) smallest_node.right = node.right;
   }
