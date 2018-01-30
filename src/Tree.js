@@ -13,53 +13,52 @@ export default class Tree {
   }
 
   remove(node, current = this.root) {
-    if (this.root === null) return null;
-    if (current === null) return null;
+    if (!this.root || !current) return null;
 
-    if (node.data === current.data) {
-      if (current === this.root) this.root = null;
-      else {
-        const closest_parent = this.get_parents(current.data).pop();
-
-        const left_of_parent = this.compare(current, closest_parent);
-        if (left_of_parent) {
-          if (!current.left && !current.right) closest_parent.left = null;
-          else if (current.left && current.right) {
-            const smallest_node = left_most_node(current.right);
-            const smallest_parent = this.get_parents(smallest_node.data).pop();
-            smallest_node.left = current.left;
-            if (smallest_parent.left) smallest_parent.left = null;
-            closest_parent.left = smallest_node;
-            if (smallest_parent !== current)
-              smallest_node.right = current.right;
-          } else if (!current.right) {
-            closest_parent.left = current.left;
-          } else {
-            closest_parent.left = current.right;
-          }
-        } else {
-          if (!current.left && !current.right) closest_parent.right = null;
-          else if (current.left && current.right) {
-            const smallest_node = left_most_node(current.right);
-            const smallest_parent = this.get_parents(smallest_node.data).pop();
-            smallest_node.left = current.left;
-            if (smallest_parent.left) smallest_parent.left = null;
-            closest_parent.right = smallest_node;
-            if (smallest_parent !== current)
-              smallest_node.right = current.right;
-          } else if (!current.right) {
-            closest_parent.right = current.left;
-          } else {
-            closest_parent.right = current.right;
-          }
-        }
-      }
-      return current;
-    }
+    if (node.data === current.data) this.remove_node(current);
 
     const less_than_current = this.compare(node, current);
     if (less_than_current) return this.remove(node, current.left);
     else return this.remove(node, current.right);
+  }
+
+  remove_node(node_to_remove) {
+    const parent_node =
+      this.get_parents(node_to_remove.data).pop() || this.root;
+
+    const has_two_children = node_to_remove.left && node_to_remove.right;
+    const has_no_children = !node_to_remove.left && !node_to_remove.right;
+
+    if (has_two_children) this.swap_with_lowest(node_to_remove, parent_node);
+    else if (has_no_children) this.remove_leaf(node_to_remove, parent_node);
+    else this.swap_with_leaf(node_to_remove, parent_node);
+  }
+
+  swap_with_lowest(node, parent) {
+    const smallest_node = left_most_node(node.right);
+    const smallest_parent = this.get_parents(smallest_node.data).pop();
+
+    smallest_node.left = node.left;
+    smallest_parent.left = null;
+
+    if (node === this.root) {
+      this.root = smallest_node;
+    } else {
+      this.compare(smallest_node, parent)
+        ? (parent.left = smallest_node)
+        : (parent.right = smallest_node);
+    }
+
+    if (smallest_parent !== node) smallest_node.right = node.right;
+  }
+
+  remove_leaf(node, parent) {
+    this.compare(node, parent) ? (parent.left = null) : (parent.right = null);
+  }
+
+  swap_with_leaf(node, parent) {
+    const child = node.left || node.right;
+    this.compare(node, parent) ? (parent.left = child) : (parent.right = child);
   }
 
   contains(value, current = this.root) {
