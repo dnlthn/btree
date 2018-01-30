@@ -26,7 +26,7 @@ export default class Tree {
 
   get_parents(value, current = this.root, parents = []) {
     if (!this.contains(value)) return [];
-    if (!current) return parents.slice(0, parents.length - 1);
+    if (!current || value === current.data) return parents;
 
     const less_than_current = this.compare({ data: value }, current);
     if (less_than_current)

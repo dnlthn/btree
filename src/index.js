@@ -39,7 +39,7 @@ parent_button.addEventListener("click", () => {
     );
 
     build_tree(binary_tree, {
-      parent: parent.data,
+      parent: parent ? parent.data : parent,
       child_one: value_one,
       child_two: value_two
     });
