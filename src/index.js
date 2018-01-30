@@ -25,6 +25,17 @@ insert_button.addEventListener("click", () => {
   }
 });
 
+const remove_button = document.getElementById("remove_node");
+remove_button.addEventListener("click", () => {
+  const remove_div = document.getElementById("remove_value");
+  if (remove_div.value) {
+    const value = parseInt(remove_div.value, 10);
+    binary_tree.remove(new Node({ data: value }));
+    build_tree(binary_tree);
+    remove_div.value = "";
+  }
+});
+
 const parent_button = document.getElementById("parent_button");
 parent_button.addEventListener("click", () => {
   const node_one_div = document.getElementById("first_value");
